@@ -3,18 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Static Website</title>
+    <title>Static Website on S3</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        h1 { color: #333; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f4f8;
+            color: #2d3748;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #232f3e 0%, #1a73e8 100%);
+            color: white;
+            padding: 48px 24px 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1.05rem;
+            opacity: 0.85;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 16px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 0.82rem;
+            letter-spacing: 0.5px;
+        }
+
+        main {
+            max-width: 860px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .steps {
+            display: grid;
+            gap: 16px;
+        }
+
+        .step {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+            border-left: 4px solid #1a73e8;
+        }
+
+        .step-number {
+            background: #1a73e8;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            min-width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            font-size: 0.9rem;
+            color: #718096;
+            line-height: 1.5;
+        }
+
+        .step-content code {
+            background: #edf2f7;
+            color: #2b6cb0;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        .tech-pill {
+            background: white;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tech-pill .icon { font-size: 1.1rem; }
+
+        .meta {
+            margin-top: 36px;
+            text-align: center;
+            font-size: 0.83rem;
+            color: #a0aec0;
+            padding-bottom: 40px;
+        }
+
+        nav {
+            text-align: center;
+            margin-top: 28px;
+        }
+
+        nav a {
+            display: inline-block;
+            background: #1a73e8;
+            color: white;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        nav a:hover { background: #1558b0; }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Static Website</h1>
-    <p>This site is deployed to S3 via GitHub Actions!</p>
-    <p>Last updated: <span id="date"></span></p>
-    <script>
-        document.getElementById('date').textContent = new Date().toLocaleString();
-    </script>
+
+<header>
+    <h1>Static Website on AWS S3</h1>
+    <p>Deployed automatically via GitHub Actions</p>
+    <span class="badge">CI/CD Pipeline — Live</span>
+</header>
+
+<main>
+    <p class="section-title">What We Built</p>
+
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h3>GitHub Repository</h3>
+                <p>Created a public repo (<code>static-website-s3</code>) with HTML files and initialized with a README.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h3>Static Website Files</h3>
+                <p>Wrote <code>index.html</code> and <code>about.html</code> — the content you're looking at right now.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h3>AWS S3 Bucket</h3>
+                <p>Created an S3 bucket with public access enabled and static website hosting turned on, with <code>index.html</code> as the entry point.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h3>Bucket Policy</h3>
+                <p>Added a public-read bucket policy so anyone can load the site files via the S3 website endpoint.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h3>IAM User &amp; Permissions</h3>
+                <p>Created a <code>github-actions-user</code> in IAM with a scoped inline policy granting only the S3 actions needed to deploy: <code>PutObject</code>, <code>GetObject</code>, <code>DeleteObject</code>, <code>ListBucket</code>.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">6</div>
+            <div class="step-content">
+                <h3>GitHub Secrets</h3>
+                <p>Stored <code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>, <code>AWS_S3_BUCKET</code>, and <code>AWS_REGION</code> as encrypted repository secrets — never in code.</p>
+            </div>
+        </div>
+        <div class="step">
+            <div class="step-number">7</div>
+            <div class="step-content">
+                <h3>GitHub Actions Workflow</h3>
+                <p>Added <code>.github/workflows/deploy.yml</code> — on every push to <code>main</code>, it checks out the code, authenticates to AWS, and runs <code>aws s3 sync</code> to push all files to the bucket.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="tech-stack">
+        <div class="tech-pill"><span class="icon">🐙</span> GitHub Actions</div>
+        <div class="tech-pill"><span class="icon">☁️</span> AWS S3</div>
+        <div class="tech-pill"><span class="icon">🔐</span> IAM</div>
+        <div class="tech-pill"><span class="icon">📄</span> Static HTML</div>
+        <div class="tech-pill"><span class="icon">🔄</span> CI/CD</div>
+    </div>
+
+    <nav>
+        <a href="about.html">About this project →</a>
+    </nav>
+
+    <p class="meta">Last deployed: <span id="date"></span></p>
+</main>
+
+<script>
+    document.getElementById('date').textContent = new Date().toLocaleString();
+</script>
 </body>
 </html>

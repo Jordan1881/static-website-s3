@@ -2,15 +2,157 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Static Website on S3</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        a { color: #0066cc; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f4f8;
+            color: #2d3748;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #232f3e 0%, #1a73e8 100%);
+            color: white;
+            padding: 48px 24px 40px;
+            text-align: center;
+        }
+
+        header h1 { font-size: 2.2rem; font-weight: 700; }
+        header p { margin-top: 10px; font-size: 1rem; opacity: 0.85; }
+
+        main {
+            max-width: 720px;
+            margin: 40px auto;
+            padding: 0 20px 60px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 32px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ebf4ff;
+        }
+
+        .card p {
+            font-size: 0.93rem;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .card p + p { margin-top: 10px; }
+
+        .card code {
+            background: #edf2f7;
+            color: #2b6cb0;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+        }
+
+        .flow {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .flow-step {
+            background: #ebf8ff;
+            border: 1.5px solid #bee3f8;
+            color: #2c5282;
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .flow-arrow { color: #a0aec0; font-size: 1.1rem; }
+
+        nav {
+            margin-top: 8px;
+        }
+
+        nav a {
+            display: inline-block;
+            color: #1a73e8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 0;
+        }
+
+        nav a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-    <h1>About</h1>
-    <p>This is a simple static website deployed via GitHub Actions and S3.</p>
-    <p><a href="index.html">← Back Home</a></p>
+
+<header>
+    <h1>About This Project</h1>
+    <p>A CI/CD pipeline from code to cloud</p>
+</header>
+
+<main>
+    <div class="card">
+        <h2>What Is This?</h2>
+        <p>
+            A static website hosted on <strong>AWS S3</strong> and deployed automatically via <strong>GitHub Actions</strong>.
+            Every time code is pushed to the <code>main</code> branch, the workflow fires and syncs the latest files to S3 — no manual uploads needed.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>The Deployment Flow</h2>
+        <div class="flow">
+            <span class="flow-step">git push</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">GitHub Actions triggers</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">AWS credentials loaded</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">aws s3 sync</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Live on S3</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Security Approach</h2>
+        <p>
+            AWS credentials are stored as encrypted <strong>GitHub repository secrets</strong> — they never appear in the source code or workflow logs.
+            The IAM user only has permission to interact with the specific S3 bucket, following the principle of least privilege.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>Tech Stack</h2>
+        <p>
+            <strong>GitHub</strong> — source control and Actions CI/CD runner<br>
+            <strong>AWS S3</strong> — static website hosting with public-read access<br>
+            <strong>AWS IAM</strong> — scoped deployment credentials<br>
+            <strong>HTML/CSS</strong> — the website itself (no frameworks, no build step)
+        </p>
+    </div>
+
+    <nav>
+        <a href="index.html">← Back Home</a>
+    </nav>
+</main>
+
 </body>
 </html>
